@@ -1,8 +1,0 @@
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/blive_api.dir
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/blive_api_s.dir
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/brotli.dir
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/brotli_s.dir
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/cjson.dir
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/cjson_s.dir
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/edit_cache.dir
-E:/work/pdj/supports/blive-api-c/build/CMakeFiles/rebuild_cache.dir
