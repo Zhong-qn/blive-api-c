@@ -25,6 +25,12 @@
 #define blive_loge(format, ...)     blive_log(BLIVE_LOG_ERROR, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)   /*error等级的日志打印*/
 
 
+#ifdef WIN32
+typedef SOCKET sock_t;
+#else
+typedef int sock_t;
+#endif
+
 typedef struct {
     char*       host_str;
     uint32_t    ip;
@@ -50,11 +56,11 @@ struct blive {
         void*               usr_data;           /*在接收到服务端特定类型时的回调函数中传递的调用者数据*/
     } msg_handler[BLIVE_INFO_MAX];              /*在接收到服务端特定类型时的回调函数列表*/
 
-    int32_t                 pair_fd[2];         /*用于打断blive_perform的运行使用的文件描述符*/
-    int32_t                 conn_fd;            /*与服务端的TCP连接socket文件描述符*/
+    sock_t                  pair_fd[2];         /*用于打断blive_perform的运行使用的文件描述符*/
+    sock_t                  conn_fd;            /*与服务端的TCP连接socket文件描述符*/
 
-    uint64_t                usr_id;             /*直播间用户id，0为游客*/
-    uint64_t                room_id;            /*直播间id*/
+    uint32_t                usr_id;             /*直播间用户id，0为游客*/
+    uint32_t                room_id;            /*直播间id*/
     int32_t                 pop_val;            /*直播间人气值*/
     char*                   auth_key;           /*鉴权密钥*/
     blive_srv_ipaddr        host_list[BLIVE_HOST_NUM];  /*服务端列表*/

@@ -1,10 +1,16 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/blive_api.dir/source/blive.c.o"
-  "CMakeFiles/blive_api.dir/source/conn.c.o"
-  "CMakeFiles/blive_api.dir/source/log.c.o"
-  "CMakeFiles/blive_api.dir/source/msg.c.o"
+  "CMakeFiles/blive_api.dir/source/blive.c.obj"
+  "CMakeFiles/blive_api.dir/source/blive.c.obj.d"
+  "CMakeFiles/blive_api.dir/source/conn.c.obj"
+  "CMakeFiles/blive_api.dir/source/conn.c.obj.d"
+  "CMakeFiles/blive_api.dir/source/log.c.obj"
+  "CMakeFiles/blive_api.dir/source/log.c.obj.d"
+  "CMakeFiles/blive_api.dir/source/msg.c.obj"
+  "CMakeFiles/blive_api.dir/source/msg.c.obj.d"
+  "output/lib/libblive_api.dll"
+  "output/lib/libblive_api.dll.a"
+  "output/lib/libblive_api.dll.manifest"
   "output/lib/libblive_api.pdb"
-  "output/lib/libblive_api.so"
 )
 
 # Per-language clean rules from dependency scanning.

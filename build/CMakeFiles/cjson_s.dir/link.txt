@@ -1,2 +1,2 @@
-/usr/bin/ar qc output/lib/libcjson_s.a  CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON.c.o CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON_Utils.c.o
-/usr/bin/ranlib output/lib/libcjson_s.a
+D:/MinGW/mingw64/bin/ar.exe qc output/lib/libcjson_s.a CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON.c.obj CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON_Utils.c.obj
+D:/MinGW/mingw64/bin/ranlib.exe output/lib/libcjson_s.a

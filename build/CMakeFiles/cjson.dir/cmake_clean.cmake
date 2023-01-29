@@ -1,8 +1,12 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.o"
-  "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.o"
+  "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.obj"
+  "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.obj.d"
+  "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.obj"
+  "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.obj.d"
+  "output/lib/libcjson.dll"
+  "output/lib/libcjson.dll.a"
+  "output/lib/libcjson.dll.manifest"
   "output/lib/libcjson.pdb"
-  "output/lib/libcjson.so"
 )
 
 # Per-language clean rules from dependency scanning.

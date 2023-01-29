@@ -30,6 +30,21 @@
 #define BLIVE_DEFAULT_HOST      0
 #define BLIVE_HOST_NUM          4
 
+
+#ifdef WIN32
+/* The following constants should be used for the second parameter of
+   `shutdown'.  */
+enum
+{
+  SHUT_RD = 0,		/* No more receptions.  */
+#define SHUT_RD		SHUT_RD
+  SHUT_WR,		/* No more transmissions.  */
+#define SHUT_WR		SHUT_WR
+  SHUT_RDWR		/* No more receptions or transmissions.  */
+#define SHUT_RDWR	SHUT_RDWR
+};
+#endif
+
 typedef enum {
     True = 1,
     False = 0

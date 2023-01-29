@@ -1,162 +1,162 @@
 [
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dblive_api_EXPORTS @CMakeFiles/blive_api.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api.dir/source/conn.c.obj -c E:/work/pdj/supports/blive-api-c/source/conn.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/conn.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON_Utils.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dblive_api_EXPORTS @CMakeFiles/blive_api.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api.dir/source/msg.c.obj -c E:/work/pdj/supports/blive-api-c/source/msg.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/msg.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dcjson_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dblive_api_EXPORTS @CMakeFiles/blive_api.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api.dir/source/blive.c.obj -c E:/work/pdj/supports/blive-api-c/source/blive.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/blive.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dcjson_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dblive_api_EXPORTS @CMakeFiles/blive_api.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api.dir/source/log.c.obj -c E:/work/pdj/supports/blive-api-c/source/log.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/log.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/bit_reader.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/blive_api_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api_s.dir/source/conn.c.obj -c E:/work/pdj/supports/blive-api-c/source/conn.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/conn.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/decode.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/blive_api_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api_s.dir/source/msg.c.obj -c E:/work/pdj/supports/blive-api-c/source/msg.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/msg.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/huffman.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/blive_api_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api_s.dir/source/blive.c.obj -c E:/work/pdj/supports/blive-api-c/source/blive.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/blive.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/state.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/blive_api_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/blive_api_s.dir/source/log.c.obj -c E:/work/pdj/supports/blive-api-c/source/log.c",
+  "file": "E:/work/pdj/supports/blive-api-c/source/log.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/constants.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/bit_reader.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/context.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/decode.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/dictionary.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/huffman.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/platform.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/state.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/shared_dictionary.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/constants.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/transform.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/context.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/bit_reader.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/dictionary.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/decode.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/platform.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/huffman.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/shared_dictionary.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/dec/state.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dbrotli_EXPORTS @CMakeFiles/brotli.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/transform.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/constants.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/bit_reader.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/bit_reader.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/context.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/decode.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/decode.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/dictionary.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/huffman.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/huffman.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/platform.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/dec/state.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/dec/state.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/shared_dictionary.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/constants.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/constants.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dbrotli_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/brotli.dir/external_supports/brotli/common/transform.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/context.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/context.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api_s.dir/source/conn.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/conn.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/conn.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/dictionary.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/dictionary.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api_s.dir/source/msg.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/msg.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/msg.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/platform.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/platform.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api_s.dir/source/blive.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/blive.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/blive.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/shared_dictionary.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/shared_dictionary.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc  -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api_s.dir/source/log.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/log.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/log.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/brotli_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/brotli_s.dir/external_supports/brotli/common/transform.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/brotli/common/transform.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dblive_api_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api.dir/source/conn.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/conn.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/conn.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dcjson_EXPORTS @CMakeFiles/cjson.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dblive_api_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api.dir/source/msg.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/msg.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/msg.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc -Dcjson_EXPORTS @CMakeFiles/cjson.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dblive_api_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api.dir/source/blive.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/blive.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/blive.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/cjson_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c"
 },
 {
-  "directory": "/mnt/e/work/pdj/supports/blive-api-c/build",
-  "command": "gcc -Dblive_api_EXPORTS -I/mnt/e/work/pdj/supports/blive-api-c/include -I/mnt/e/work/pdj/supports/blive-api-c/include/blive_api -I/mnt/e/work/pdj/supports/blive-api-c/source -I/mnt/e/work/pdj/supports/blive-api-c/external_supports -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/curl/include -I/mnt/e/work/pdj/supports/blive-api-c/external_supports/brotli/include  -O3 -DNDEBUG -fPIC   -g -Wall -Werror -m64 -fPIC -o CMakeFiles/blive_api.dir/source/log.c.o   -c /mnt/e/work/pdj/supports/blive-api-c/source/log.c",
-  "file": "/mnt/e/work/pdj/supports/blive-api-c/source/log.c"
+  "directory": "E:/work/pdj/supports/blive-api-c/build",
+  "command": "gcc  @CMakeFiles/cjson_s.dir/includes_C.rsp -g -g -Wall -fPIC -o CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON_Utils.c.obj -c E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c",
+  "file": "E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c"
 }
 ]

@@ -1,27 +1,15 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "C"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_C
-  "/mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c" "/mnt/e/work/pdj/supports/blive-api-c/build/CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.o"
-  "/mnt/e/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c" "/mnt/e/work/pdj/supports/blive-api-c/build/CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.o"
-  )
-set(CMAKE_C_COMPILER_ID "GNU")
-
-# Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS_C
-  "cjson_EXPORTS"
   )
 
-# The include file search paths:
-set(CMAKE_C_TARGET_INCLUDE_PATH
-  "../include"
-  "../include/blive_api"
-  "../source"
-  "../external_supports"
-  "../external_supports/curl/include"
-  "../external_supports/brotli/include"
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON.c" "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.obj" "gcc" "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON.c.obj.d"
+  "E:/work/pdj/supports/blive-api-c/external_supports/cJSON/cJSON_Utils.c" "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.obj" "gcc" "CMakeFiles/cjson.dir/external_supports/cJSON/cJSON_Utils.c.obj.d"
   )
 
 # Targets to which this target links.

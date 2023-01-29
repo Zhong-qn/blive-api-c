@@ -11,8 +11,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#ifdef WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <Windows.h>
+#else
 #include <net/if.h>
 #include <arpa/inet.h>
+#endif
 
 #include "brotli/decode.h"
 
@@ -89,7 +96,7 @@ int blive_send_auth_msg(blive* entity)
     data_len = snprintf(auth_msg + sizeof(blive_msg_header), 1024 - 1 - sizeof(blive_msg_header), 
             AUTH_SEND_PACKET_JSON_BODY, entity->usr_id, entity->room_id, entity->auth_key);
     header_construct(auth_msg, entity, BLIVE_MSG_TYPE_AUTH, data_len);
-    blive_logd("send msg: %d ---- %s\n", data_len, auth_msg + sizeof(blive_msg_header));
+    blive_logd("send msg: %d ---- %s", data_len, auth_msg + sizeof(blive_msg_header));
 
     /*使用循环，在连接节点失败后自动尝试连接host列表中的其他服务器*/
     for (int count = 0; count < BLIVE_HOST_NUM; count++) {
@@ -106,22 +113,22 @@ int blive_send_auth_msg(blive* entity)
         addr.sin_port = htons(entity->host_list[count].port);
         ret = connect(entity->conn_fd, (struct sockaddr*)&addr, sizeof(struct sockaddr_in));
         if (ret) {
-            blive_loge("count %d connect failed: connect return code: %d\n", count, ret);
+            blive_loge("count %d connect failed: connect return code: %d", count, ret);
             continue;
         }
 
         /*发送鉴权*/
         ret = send(entity->conn_fd, auth_msg, sizeof(blive_msg_header) + data_len, 0);
         if (!ret) {
-            blive_loge("count %d send failed\n", count);
+            blive_loge("count %d send failed", count);
             continue;
         }
-        blive_logd("count %d send %d byte(s)\n", count, ret);
+        blive_logd("count %d send %d byte(s)", count, ret);
 
         /*接收响应头*/
         ret = header_recv(entity, &auth_header);
         if (ret == ERROR) {
-            blive_loge("count %d recv header failed: remote closed\n", count);
+            blive_loge("count %d recv header failed: remote closed", count);
             continue;
         }
         header_print(&auth_header);
@@ -129,15 +136,15 @@ int blive_send_auth_msg(blive* entity)
         /*接收响应正文*/
         ret = body_recv(entity, &auth_header, auth_body);
         if (ret == ERROR) {
-            blive_loge("count %d recv body failed: remote closed\n", count);
+            blive_loge("count %d recv body failed: remote closed", count);
             continue;
         }
 
         /*响应头处理*/
-        blive_logd("count %d recv %d byte(s) reply body\n", count, ret);
-        blive_logd("count %d reply body: %s\n", count, auth_body);
+        blive_logd("count %d recv %d byte(s) reply body", count, ret);
+        blive_logd("count %d reply body: %s", count, auth_body);
         if (auth_header.msg_operate != BLIVE_MSG_TYPE_AUTH_REPLY) {
-            blive_loge("count %d recv failed: remote reply error\n", count);
+            blive_loge("count %d recv failed: remote reply error", count);
             continue;
         }
 
@@ -151,7 +158,7 @@ int blive_send_auth_msg(blive* entity)
         }
         if (cJSON_GetObjectItem(srv_ret, "code")->valueint != 0) {
             cJSON_Delete(srv_ret);
-            blive_loge("count %d recv failed: remote reply code: %d\n", count, cJSON_GetObjectItem(srv_ret, "code")->valueint);
+            blive_loge("count %d recv failed: remote reply code: %d", count, cJSON_GetObjectItem(srv_ret, "code")->valueint);
             continue;
         }
         
@@ -174,15 +181,15 @@ int blive_send_heartbeat(blive* entity)
     data_len = snprintf(hb_msg + sizeof(blive_msg_header), 1024 - 1 - sizeof(blive_msg_header), 
             HRTBT_SEND_PACKET_JSON_BODY, BLIVEC_MAJOR_VERSION, BLIVEC_SECOND_VERSION);
     header_construct(hb_msg, entity, BLIVE_MSG_TYPE_HEARTBEAT, data_len);
-    blive_logd("send msg: %d ---- %s\n", data_len, hb_msg + sizeof(blive_msg_header));
+    blive_logd("send msg: %d ---- %s", data_len, hb_msg + sizeof(blive_msg_header));
 
     /*发送心跳包*/
     ret = send(entity->conn_fd, hb_msg, sizeof(blive_msg_header) + data_len, 0);
     if (!ret) {
-        blive_loge("heartbeat send failed\n");
+        blive_loge("heartbeat send failed");
         return ERROR;
     }
-    blive_logd("send %d byte(s)\n", ret);
+    blive_logd("send %d byte(s)", ret);
 
     /**
      * @brief 注释说明：
@@ -195,7 +202,7 @@ int blive_send_heartbeat(blive* entity)
     // /*接收响应头*/
     // ret = recv(entity->conn_fd, hb_reply, sizeof(blive_msg_header), 0);
     // if (!ret) {
-    //     blive_loge("recv failed: remote closed\n");
+    //     blive_loge("recv failed: remote closed");
     //     return ERROR;
     // }
     // header_print((blive_msg_header*)hb_reply);
@@ -204,13 +211,13 @@ int blive_send_heartbeat(blive* entity)
     // ret = recv(entity->conn_fd, hb_reply + sizeof(blive_msg_header), 
     //            ntohl(((blive_msg_header*)hb_reply)->packet_size) - sizeof(blive_msg_header), 0);
     // if (!ret) {
-    //     blive_loge("recv failed: remote closed\n");
+    //     blive_loge("recv failed: remote closed");
     //     return ERROR;
     // }
 
     // /*响应头解析*/
     // if (ntohl(((blive_msg_header*)hb_reply)->msg_operate) != BLIVE_MSG_TYPE_HBREPLY_POP) {
-    //     blive_loge("recv failed: remote reply error\n");
+    //     blive_loge("recv failed: remote reply error");
     //     return ERROR;
     // }
 
@@ -238,12 +245,17 @@ int blive_perform(blive* entity, int count)
         return OK;
     }
 
+    if (!entity->conn_fd) {
+        blive_loge("connection not established");
+        return ERROR;
+    }
+
     while (run) {
         fdmax = entity->conn_fd > entity->pair_fd[0] ? entity->conn_fd : entity->pair_fd[0];
         FD_ZERO(&fds);
         FD_SET(entity->pair_fd[0], &fds);
         FD_SET(entity->conn_fd, &fds);
-        if (select(fdmax, &fds, NULL, NULL, NULL) <= 0) {
+        if (select(fdmax + 1, &fds, NULL, NULL, NULL) <= 0) {
             continue;
         }
 
@@ -258,14 +270,14 @@ int blive_perform(blive* entity, int count)
         /*与服务端的TCP连接文件描述符可读*/
         if (FD_ISSET(entity->conn_fd, &fds)) {
             if (header_recv(entity, &header) == ERROR) {
-                blive_loge("connection closed!\n");
+                blive_loge("connection closed!");
                 retval = ERROR;
                 break;
             }
             header_print(&header);
             memset(body, 0, sizeof(body));
             if (body_recv(entity, &header, body) == ERROR) {
-                blive_loge("connection closed!\n");
+                blive_loge("connection closed!");
                 retval = ERROR;
                 break;
             }
@@ -298,15 +310,15 @@ int blive_perform(blive* entity, int count)
                 if (header.msg_proto == BLIVE_MSG_PROTO_CMDCOMPRESZLIB) {   /*普通包正文使用zlib压缩*/
                     blive_logd("msg body use zlib encode");
                     // if (zlib_unzip(&decode_buffer, body, &header, entity) == ERROR) {
-                    //     blive_loge("brotli decode failed\n");
+                    //     blive_loge("brotli decode failed");
                     //     break;
                     // }
-                    blive_loge("zlib not supported yet\n");
+                    blive_loge("zlib not supported yet");
                     break;
                 } else if (header.msg_proto == BLIVE_MSG_PROTO_CMDCOMPRESBROTLI) {  /*普通包正文使用brotli压缩*/
                     blive_logd("msg body use brotli encode");
                     if (brotli_unzip(&decode_buffer, body, &header, entity) == ERROR) {
-                        blive_loge("brotli decode failed\n");
+                        blive_loge("brotli decode failed");
                         break;
                     }
                 } else {
@@ -318,7 +330,7 @@ int blive_perform(blive* entity, int count)
                     blive_loge("invalid normal command packet!");
                 } else {
                     /*如果用户注册了对应类型的回调函数，则调用回调接口触发*/
-                    blive_logd("body: [%s]\n", decode_buffer);
+                    blive_logd("body: [%s]", decode_buffer);
                     call_handler(entity, cmd_type, json_obj);
                 }
 
@@ -348,6 +360,7 @@ int blive_perform(blive* entity, int count)
         }
     }
 
+    blive_logd("perform finished");
     return retval;
 }
 
@@ -374,7 +387,7 @@ static int cmd_body_parse(blive* entity, const char* body, cJSON** output)
     /*解析消息类型*/
     cmd_obj = cJSON_GetObjectItem(json_obj, "cmd");
     if (cmd_obj == NULL) {
-        blive_loge("invalid msg: no cmd field\n");
+        blive_loge("invalid msg: no cmd field");
         cJSON_Delete(json_obj);
         return ERROR;
     }
@@ -387,7 +400,7 @@ static int cmd_body_parse(blive* entity, const char* body, cJSON** output)
 
     if (count >= BLIVE_INFO_MAX) {
         retval = ERROR;
-        blive_loge("invalid cmd type: %s\n", cmd_obj->valuestring);
+        blive_loge("invalid cmd type: %s", cmd_obj->valuestring);
         cJSON_Delete(json_obj);
     } else {
         retval = count;

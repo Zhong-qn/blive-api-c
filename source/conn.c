@@ -11,9 +11,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#ifdef WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <Windows.h>
+#else
 #include <netdb.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
+#endif
 
 #include "conn.h"
 #include "msg.h"
@@ -21,7 +28,7 @@
 #include "blive_internal.h"
 
 
-static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* handle, uint64_t room_id);
+static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* handle, uint32_t room_id);
 
 
 int blive_establish_connection(blive* entity, blive_schedule_func schedule_func, void* schedule_entity)
@@ -32,13 +39,13 @@ int blive_establish_connection(blive* entity, blive_schedule_func schedule_func,
 
     /*获取信息流认证秘钥*/
     if (get_stream_auth_key(&entity->auth_key, entity->host_list, entity->curl_handle, entity->room_id) != OK) {
-        blive_loge("failed to get auth key\n");
+        blive_loge("failed to get auth key");
         return ERROR;
     }
 
     /*发送认证包*/
     if (blive_send_auth_msg(entity)) {
-        blive_loge("failed to send auth msg\n");
+        blive_loge("failed to send auth msg");
         return ERROR;
     }
 
@@ -95,7 +102,7 @@ int blive_close_connection(blive* entity)
  * @param [in] room_id 直播间房间号
  * @return int 
  */
-static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* handle, uint64_t room_id)
+static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* handle, uint32_t room_id)
 {
     cJSON*  cjson_srvr_ret = NULL;
     cJSON*  cjson_obj = NULL;
@@ -108,6 +115,7 @@ static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* h
     struct hostent* dns_res = NULL;
     int     count = 0;
     int     retval = ERROR;
+    CURLcode    curl_ret = CURLE_OK;
 
     /*拼接完整的HTTP GET的URL*/
     final_size = strlen(url) + BLIVE_ROOM_ID_LEN + 4;
@@ -116,15 +124,20 @@ static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* h
         return ERROR;
     }
     memset(final_url, 0, final_size + 1);
-    snprintf(final_url, final_size, "%s?id=%ld", url, room_id);
+    snprintf(final_url, final_size, "%s?id=%d", url, room_id);
 
     /*使用CURL库发起HTTP GET*/
     curl_easy_setopt(handle, CURLOPT_URL, final_url);
+    curl_easy_setopt(handle, CURLOPT_SSL_VERIFYPEER, False);    /*关闭SSL校验*/
     curl_easy_setopt(handle, CURLOPT_WRITEDATA, &key_struct);
     curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, blive_default_curl_writefunc);
-    curl_easy_perform(handle);
+    curl_ret = curl_easy_perform(handle);
+    if (curl_ret != CURLE_OK) {
+        blive_loge("curl http GET failed. code: %d", curl_ret);
+        return ERROR;
+    }
 
-    blive_logd("get repply: [%s]\n", key_struct.data);
+    blive_logd("get repply: [%s]", key_struct.data);
 
     /**解析返回的JSON数据
      * 例：
@@ -170,7 +183,7 @@ static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* h
     }
     memset(*auth_key, 0, key_struct.data_len + 1);
     strncpy(*auth_key, cjson_obj->valuestring, key_struct.data_len);
-    blive_logd("get token success: [%s]\n", cjson_obj->valuestring);
+    blive_logd("get token success: [%s]", cjson_obj->valuestring);
 
     /*获取host*/
     cjson_obj = cJSON_GetObjectItem(cjson_srvr_ret, "data");
@@ -201,12 +214,8 @@ static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* h
         switch (dns_res->h_addrtype) {
         case AF_INET:
         case AF_INET6:
-        {
-            char    tmpbuf[32] = {0};
-            hosts[count].ip = inet_addr(inet_ntop(dns_res->h_addrtype, *dns_res->h_addr_list, tmpbuf, sizeof(tmpbuf)));
-            blive_logd("ipaddr = %s\n", tmpbuf);
+            hosts[count].ip = *((uint32_t*)dns_res->h_addr);
             break;
-        }
         default:
             break;
         }

@@ -78,7 +78,7 @@ typedef struct {
  * 
  */
 
-#define AUTH_SEND_PACKET_JSON_BODY      "{\"uid\":%ld,\"roomid\":%ld,\"protover\":3,\"platform\":\"web\",\"type\":2,\"key\":\"%s\"}"
+#define AUTH_SEND_PACKET_JSON_BODY      "{\"uid\":%d,\"roomid\":%d,\"protover\":3,\"platform\":\"web\",\"type\":2,\"key\":\"%s\"}"
 #define HRTBT_SEND_PACKET_JSON_BODY     "{msg: \"zqn blive-c v%d.%d\"}"
 #define POP_VALUE_UPDATE_JSON_BODY      "{\"cmd\":\"%s\",\"pop_value\":%d}"
 

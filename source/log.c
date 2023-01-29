@@ -13,10 +13,17 @@
 #include "blive_internal.h"
 
 
+#ifdef asd
+#define ESC_BEGIN                       
+#define ESC_END                         
+#define ESC_STR(attr, str)              ESC_BEGIN str ESC_END
+#define ESC_STR2(attr1, attr2, str)     ESC_BEGIN str ESC_END
+#else
 #define ESC_BEGIN                       "\033["
 #define ESC_END                         "\033[0m"
 #define ESC_STR(attr, str)              ESC_BEGIN attr "m" str ESC_END
 #define ESC_STR2(attr1, attr2, str)     ESC_BEGIN attr1 ";" attr2 "m" str ESC_END
+#endif
 #define COLOR_BG_BLACK                  "40"
 #define COLOR_BG_WHITE                  "47"
 #define COLOR_BG_READ                   "41"
@@ -34,9 +41,9 @@
 
 
 static char*    log_prefix_fmt[] = {
-    ESC_STR(COLOR_CH_GREEN,  "[%15s: %4d] [D] "),
-    ESC_STR(COLOR_CH_YELLOW,  "[%15s: %4d] [D] "),
-    ESC_STR(COLOR_CH_RED,  "[%15s: %4d] [D] "),
+    ESC_STR(COLOR_CH_GREEN,     "[D] [%20s: %4d] "),
+    ESC_STR(COLOR_CH_YELLOW,    "[I] [%20s: %4d] "),
+    ESC_STR(COLOR_CH_RED,       "[E] [%20s: %4d] "),
 };
 
 
@@ -58,10 +65,11 @@ int blive_log(blive_log_level level, const char* func_name, int line, const char
     va_end(va);
 
     /*如果打印末尾未添加换行符，则补上一个换行符*/
-    if (print_buffer[print_size + prefix_size - 1] != '\n') {
-        print_buffer[print_size + prefix_size] = '\n';
+    if (print_buffer[print_size + prefix_size - 2] != '\n' && print_buffer[print_size + prefix_size - 1] != '\n') {
+        print_buffer[print_size + prefix_size] = '\r';
+        print_buffer[print_size + prefix_size + 1] = '\n';
     }
-    fwrite(print_buffer, 2048 - 1, 1, stderr);
+    fwrite(print_buffer, print_size + prefix_size + 2, 1, stderr);
 
     return print_size;
 }
