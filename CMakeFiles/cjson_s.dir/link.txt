@@ -1,2 +1,0 @@
-/usr/bin/ar qc build/output/lib/libcjson_s.a  CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON.c.o CMakeFiles/cjson_s.dir/external_supports/cJSON/cJSON_Utils.c.o
-/usr/bin/ranlib build/output/lib/libcjson_s.a
