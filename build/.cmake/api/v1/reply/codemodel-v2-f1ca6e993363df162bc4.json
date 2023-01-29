@@ -1,0 +1,104 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "blive_api_c",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "blive_api::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-blive_api-Release-82c082df080bbeb340a4.json",
+					"name" : "blive_api",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "blive_api_s::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-blive_api_s-Release-2a38a76bf777fccf7dba.json",
+					"name" : "blive_api_s",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "brotli::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-brotli-Release-24229fa72e1be307726d.json",
+					"name" : "brotli",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "brotli_s::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-brotli_s-Release-88dcccb061062a9a2dee.json",
+					"name" : "brotli_s",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cjson::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cjson-Release-fa8e6531c54ab5cffec8.json",
+					"name" : "cjson",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cjson_s::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cjson_s-Release-6c697c48e5dc401675c4.json",
+					"name" : "cjson_s",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/mnt/e/work/pdj/supports/blive-api-c/build",
+		"source" : "/mnt/e/work/pdj/supports/blive-api-c"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

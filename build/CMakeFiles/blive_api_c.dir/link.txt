@@ -1,0 +1,1 @@
+gcc -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libblive_api_c.so -o output/lib/libblive_api_c.so CMakeFiles/blive_api_c.dir/source/conn.c.o CMakeFiles/blive_api_c.dir/source/msg.c.o CMakeFiles/blive_api_c.dir/source/blive.c.o CMakeFiles/blive_api_c.dir/external_supports/cJSON/cJSON.c.o CMakeFiles/blive_api_c.dir/external_supports/cJSON/cJSON_Utils.c.o  -lpthread -lcurl 
