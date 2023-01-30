@@ -53,36 +53,36 @@ set(TMP_FILES_DIR ${BLIVE_API_DIR}/CMakeCaches)
 endif()
 
 
-include_directories(${BLIVE_DIR}/include
-                    ${BLIVE_DIR}/include/blive_api
-                    ${BLIVE_DIR}/source
-                    ${BLIVE_DIR}/external_supports/
-                    ${BLIVE_DIR}/external_supports/curl/include
-                    ${BLIVE_DIR}/external_supports/brotli/include)
+include_directories(${BLIVE_API_DIR}/include
+                    ${BLIVE_API_DIR}/include/blive_api
+                    ${BLIVE_API_DIR}/source
+                    ${BLIVE_API_DIR}/external_supports/
+                    ${BLIVE_API_DIR}/external_supports/curl/include
+                    ${BLIVE_API_DIR}/external_supports/brotli/include)
 
 link_directories(./build/output/lib/)
 
 
-set(EXT_CJSON_SRC       ${BLIVE_DIR}/external_supports/cJSON/cJSON.c
-                        ${BLIVE_DIR}/external_supports/cJSON/cJSON_Utils.c
+set(EXT_CJSON_SRC       ${BLIVE_API_DIR}/external_supports/cJSON/cJSON.c
+                        ${BLIVE_API_DIR}/external_supports/cJSON/cJSON_Utils.c
                         )
 
-set(EXT_BROTLI_SRC      ${BLIVE_DIR}/external_supports/brotli/dec/bit_reader.c
-                        ${BLIVE_DIR}/external_supports/brotli/dec/decode.c
-                        ${BLIVE_DIR}/external_supports/brotli/dec/huffman.c
-                        ${BLIVE_DIR}/external_supports/brotli/dec/state.c
-                        ${BLIVE_DIR}/external_supports/brotli/common/constants.c
-                        ${BLIVE_DIR}/external_supports/brotli/common/context.c
-                        ${BLIVE_DIR}/external_supports/brotli/common/dictionary.c
-                        ${BLIVE_DIR}/external_supports/brotli/common/platform.c
-                        ${BLIVE_DIR}/external_supports/brotli/common/shared_dictionary.c
-                        ${BLIVE_DIR}/external_supports/brotli/common/transform.c
+set(EXT_BROTLI_SRC      ${BLIVE_API_DIR}/external_supports/brotli/dec/bit_reader.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/dec/decode.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/dec/huffman.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/dec/state.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/common/constants.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/common/context.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/common/dictionary.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/common/platform.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/common/shared_dictionary.c
+                        ${BLIVE_API_DIR}/external_supports/brotli/common/transform.c
                         )
 
-set(BLIVE_API_SRC       ${BLIVE_DIR}/source/conn.c
-                        ${BLIVE_DIR}/source/msg.c
-                        ${BLIVE_DIR}/source/blive.c
-                        ${BLIVE_DIR}/source/log.c
+set(BLIVE_API_SRC       ${BLIVE_API_DIR}/source/conn.c
+                        ${BLIVE_API_DIR}/source/msg.c
+                        ${BLIVE_API_DIR}/source/blive.c
+                        ${BLIVE_API_DIR}/source/log.c
                         )
 
 
@@ -99,9 +99,9 @@ if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
     target_link_libraries(blive_api_s -lws2_32)
 endif()
 
-file(COPY ${BLIVE_DIR}/external_supports/cJSON/cJSON.h      DESTINATION ${INCLUDE_OUTPUT_DIR})
-file(COPY ${BLIVE_DIR}/include/blive_api/blive_api.h        DESTINATION ${INCLUDE_OUTPUT_DIR}/blive_api/)
-file(COPY ${BLIVE_DIR}/include/blive_api/blive_def.h        DESTINATION ${INCLUDE_OUTPUT_DIR}/blive_api/)
+file(COPY ${BLIVE_API_DIR}/external_supports/cJSON/cJSON.h      DESTINATION ${INCLUDE_OUTPUT_DIR})
+file(COPY ${BLIVE_API_DIR}/include/blive_api/blive_api.h        DESTINATION ${INCLUDE_OUTPUT_DIR}/blive_api/)
+file(COPY ${BLIVE_API_DIR}/include/blive_api/blive_def.h        DESTINATION ${INCLUDE_OUTPUT_DIR}/blive_api/)
 
 add_library(brotli SHARED ${EXT_BROTLI_SRC})
 add_library(brotli_s STATIC ${EXT_BROTLI_SRC})
