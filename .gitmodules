@@ -1,0 +1,4 @@
+[submodule "external_supports/cJSON"]
+	url = https://github.com/DaveGamble/cJSON.git
+[submodule "external_supports/curl"]
+	url = https://github.com/curl/curl.git
