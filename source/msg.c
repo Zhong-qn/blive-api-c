@@ -222,7 +222,7 @@ int blive_send_heartbeat(blive* entity)
     // }
 
     /*在发送一个心跳包后，重注册定时器，发送下一个心跳包*/
-    if (entity->sched_func(entity->sched_entity, 30 * 1000, (blive_schedule_cb)blive_send_heartbeat) != OK) {
+    if (entity->sched_func(entity->sched_entity, 30 * 1000, (blive_schedule_cb)blive_send_heartbeat, entity) != OK) {
         return ERROR;
     }
 
@@ -288,12 +288,13 @@ int blive_perform(blive* entity, int count)
                 cJSON*  json_obj = NULL;
                 char    buffer[128] = {0};
 
-                sscanf(body, "%d", &entity->pop_val);    /*获取人气值*/
+                entity->pop_val = ntohl(*((uint32_t*)body));    /*获取人气值*/
                 snprintf(buffer, 127, POP_VALUE_UPDATE_JSON_BODY, 
                          blive_info_str[BLIVE_INFO_POP_VALUE_UPDATE].info_str, entity->pop_val);
                 json_obj = cJSON_Parse(buffer);
                 call_handler(entity, BLIVE_INFO_POP_VALUE_UPDATE, json_obj);
 
+                blive_logd("pop value = %d", entity->pop_val);
                 /*释放临时资源*/
                 cJSON_Delete(json_obj);
                 json_obj = NULL;

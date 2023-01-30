@@ -52,7 +52,7 @@ int blive_establish_connection(blive* entity, blive_schedule_func schedule_func,
     /*设置定时器事件，30秒后发送心跳包*/
     entity->sched_func = schedule_func;
     entity->sched_entity = schedule_entity;
-    if (schedule_func(schedule_entity, 30 * 1000, (blive_schedule_cb)blive_send_heartbeat) != OK) {
+    if (schedule_func(schedule_entity, 30 * 1000, (blive_schedule_cb)blive_send_heartbeat, entity) != OK) {
         return ERROR;
     }
 

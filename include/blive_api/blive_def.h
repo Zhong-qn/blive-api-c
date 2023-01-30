@@ -99,9 +99,10 @@ typedef void (*blive_schedule_cb)(void* usr_data);
  * @param [in] sched_entity 定时器实体
  * @param [in] millisec 触发的毫秒数
  * @param [in] cb 当定时器触发后调用的回调函数
+ * @param [in] cb_context 当定时器触发后调用的回调函数的参数
  * 
  */
-typedef int (*blive_schedule_func)(void* sched_entity, size_t millisec, blive_schedule_cb cb);
+typedef int (*blive_schedule_func)(void* sched_entity, size_t millisec, blive_schedule_cb cb, void* cb_context);
 
 #define BLIVE_ROOM_ID_LEN   8
 
