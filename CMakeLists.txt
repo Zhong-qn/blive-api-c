@@ -12,44 +12,44 @@ set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_C_COMPILER gcc)
 
 # 创建项目工作路径
-if(DEFINED BLIVE_DIR)
-message("already difined work directory: ${BLIVE_DIR}")
+if(DEFINED BLIVE_API_DIR)
+message("already difined work directory: ${BLIVE_API_DIR}")
 else()
 message("not difined work directory, using default:  ${CMAKE_CURRENT_SOURCE_DIR}")
-set(BLIVE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(BLIVE_API_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
 # 创建编译路径
-if(DEFINED BUILD_DIR)
-message("already difined build directory: ${BUILD_DIR}")
+if(DEFINED BLIVE_API_BUILD_DIR)
+message("already difined build directory: ${BLIVE_API_BUILD_DIR}")
 else()
-message("not difined build directory, using default:  ${BLIVE_DIR}/build/")
-set(BUILD_DIR ${BLIVE_DIR}/build/)
+message("not difined build directory, using default:  ${BLIVE_API_DIR}/build/")
+set(BLIVE_API_BUILD_DIR ${BLIVE_API_DIR}/build)
 endif()
 
 # 创建lib输出路径
-if(DEFINED LIB_DIR)
-message("already difined libarary output directory: ${LIB_DIR}")
+if(DEFINED LIB_OUTPUT_DIR)
+message("already difined libarary output directory: ${LIB_OUTPUT_DIR}")
 else()
-message("not difined libarary output directory, using default:  ${BUILD_DIR}/lib/")
-set(LIB_DIR ${BUILD_DIR}/output/lib/)
+message("not difined libarary output directory, using default:  ${BLIVE_API_BUILD_DIR}/lib/")
+set(LIB_OUTPUT_DIR ${BLIVE_API_BUILD_DIR}/output/lib)
 endif()
-set(LIBRARY_OUTPUT_PATH ${LIB_DIR})
+set(LIBRARY_OUTPUT_PATH ${LIB_OUTPUT_DIR})
 
 # 创建头文件输出路径
 if(DEFINED INCLUDE_OUTPUT_DIR)
 message("already difined include file output directory: ${INCLUDE_OUTPUT_DIR}")
 else()
-message("not difined include file output directory, using default:  ${BUILD_DIR}/include/")
-set(INCLUDE_OUTPUT_DIR ${BUILD_DIR}/output/include/)
+message("not difined include file output directory, using default:  ${BLIVE_API_BUILD_DIR}/include/")
+set(INCLUDE_OUTPUT_DIR ${BLIVE_API_BUILD_DIR}/output/include)
 endif()
 
 # 创建cmake临时文件路径
 if(DEFINED TMP_FILES_DIR)
 message("already difined cache file directory: ${TMP_FILES_DIR}")
 else()
-message("not difined cache file directory, using default:  ${BLIVE_DIR}/CMakeCaches/")
-set(TMP_FILES_DIR ${BLIVE_DIR}/CMakeCaches/)
+message("not difined cache file directory, using default:  ${BLIVE_API_DIR}/CMakeCaches/")
+set(TMP_FILES_DIR ${BLIVE_API_DIR}/CMakeCaches)
 endif()
 
 
