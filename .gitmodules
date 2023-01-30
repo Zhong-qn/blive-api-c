@@ -1,6 +1,7 @@
 [submodule "cJSON"]
-    path = external_supports/cJSON
-	url = git@github.com:/DaveGamble/cJSON.git
+		path = external_supports/cJSON
+		url = git@github.com:DaveGamble/cJSON.git
 [submodule "curl"]
-    path = external_supports/curl
-	url = git@github.com:/curl/curl.git
+		path = external_supports/curl
+		url = git@github.com:curl/curl.git
+
