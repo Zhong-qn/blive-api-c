@@ -19,11 +19,15 @@
 #include "cJSON/cJSON.h"
 
 
-
+#if (defined BLIVE_API_DEBUG)
 #define blive_logd(format, ...)     blive_log(BLIVE_LOG_DEBUG, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)   /*debug等级的日志打印*/
 #define blive_logi(format, ...)     blive_log(BLIVE_LOG_INFO, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)    /*info等级的日志打印*/
 #define blive_loge(format, ...)     blive_log(BLIVE_LOG_ERROR, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)   /*error等级的日志打印*/
-
+#else
+#define blive_logd(format, ...)
+#define blive_logi(format, ...)
+#define blive_loge(format, ...)
+#endif
 
 #ifdef WIN32
 typedef SOCKET sock_t;

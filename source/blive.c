@@ -196,9 +196,9 @@ int blive_create(blive** entity, uint64_t usr_id, uint64_t room_id)
     curl_easy_setopt((*entity)->curl_handle, CURLOPT_NOSIGNAL, 1L);     /*为保证多线程安全，禁用超时设置*/
 
 #ifdef WIN32
-    blive_logd("%d", socketpair(AF_INET, SOCK_STREAM, 0, (*entity)->pair_fd));
+    socketpair(AF_INET, SOCK_STREAM, 0, (*entity)->pair_fd);
 #else
-    blive_logd("%d", socketpair(PF_UNIX, SOCK_STREAM, 0, (*entity)->pair_fd));
+    socketpair(PF_UNIX, SOCK_STREAM, 0, (*entity)->pair_fd);
 #endif
     blive_logd("pair socket is [%d, %d]", (*entity)->pair_fd[0], (*entity)->pair_fd[1]);
 
