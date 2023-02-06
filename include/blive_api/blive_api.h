@@ -12,9 +12,41 @@
 
 #include "blive_def.h"
 
+
+#if (defined BLIVE_API_DEBUG_DEBUG)
+#define blive_logd(format, ...)     blive_log(BLIVE_LOG_DEBUG, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)   /*debug等级的日志打印*/
+#define blive_logi(format, ...)     blive_log(BLIVE_LOG_INFO, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)    /*info等级的日志打印*/
+#define blive_loge(format, ...)     blive_log(BLIVE_LOG_ERROR, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)   /*error等级的日志打印*/
+#elif (defined BLIVE_API_DEBUG_INFO)
+#define blive_logd(format, ...)
+#define blive_logi(format, ...)     blive_log(BLIVE_LOG_INFO, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)    /*info等级的日志打印*/
+#define blive_loge(format, ...)     blive_log(BLIVE_LOG_ERROR, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)   /*error等级的日志打印*/
+#elif (defined BLIVE_API_DEBUG_ERR)
+#define blive_logd(format, ...)
+#define blive_logi(format, ...)
+#define blive_loge(format, ...)     blive_log(BLIVE_LOG_ERROR, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)   /*error等级的日志打印*/)
+#else
+#define blive_logd(format, ...)
+#define blive_logi(format, ...)
+#define blive_loge(format, ...)
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * @brief 日志打印
+ * 
+ * @param [in] level 日志等级
+ * @param [in] func_name 打印日志处的函数名
+ * @param [in] line 打印日志处的行数
+ * @param [in] fmt 打印格式，参考printf
+ * @param [in] ... 可变长参数
+ * @return int 打印的日志长度
+ */
+int blive_log(blive_log_level level, const char* func_name, int line, const char* fmt, ...);
 
 /**
  * @brief B站直播间API使用前初始化。为了多线程安全，请勿在子线程内调用初始化或反初始化

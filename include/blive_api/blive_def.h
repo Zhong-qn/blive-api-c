@@ -46,6 +46,12 @@ enum
 #endif
 
 typedef enum {
+    BLIVE_LOG_DEBUG,
+    BLIVE_LOG_INFO,
+    BLIVE_LOG_ERROR,
+} blive_log_level;
+
+typedef enum {
     True = 1,
     False = 0
 } Bool;
