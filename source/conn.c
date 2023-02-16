@@ -207,8 +207,8 @@ static int get_stream_auth_key(char** auth_key, blive_srv_ipaddr* hosts, CURL* h
         hosts[count].wss_port = cJSON_GetObjectItem(cjson_obj, "wss_port")->valueint;
         hosts[count].host_str = malloc(strlen(host_str) + 1);
         memset(hosts[count].host_str, 0, strlen(host_str) + 1);
-        snprintf(hosts[count].host_str, strlen(host_str), "%s", host_str);
-        blive_logd("get host[%d]: %s, ", count, hosts[count].host_str);
+        snprintf(hosts[count].host_str, strlen(host_str) + 1, "%s", host_str);
+        blive_logi("get host[%d]: %s, ", count, hosts[count].host_str);
 
         dns_res = gethostbyname(host_str);
         switch (dns_res->h_addrtype) {

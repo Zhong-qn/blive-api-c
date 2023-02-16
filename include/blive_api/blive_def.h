@@ -28,7 +28,7 @@
 #define OK      0
 
 #define BLIVE_DEFAULT_HOST      0
-#define BLIVE_HOST_NUM          4
+#define BLIVE_HOST_NUM          3
 
 
 #ifdef WIN32

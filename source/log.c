@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <stdarg.h>
+#include <sys/time.h>
+#include <sys/timeb.h>
 #include "blive_internal.h"
 
 
@@ -41,10 +43,14 @@
 
 
 static char*    log_prefix_fmt[] = {
-    ESC_STR(COLOR_CH_GREEN,     "[D] [%20s: %4d] "),
-    ESC_STR(COLOR_CH_YELLOW,    "[I] [%20s: %4d] "),
-    ESC_STR(COLOR_CH_RED,       "[E] [%20s: %4d] "),
+    ESC_STR(COLOR_CH_GREEN,     "[D] [%4d-%02d-%02d %02d:%02d:%02d.%03d %20s: %4d] "),
+    ESC_STR(COLOR_CH_YELLOW,    "[I] [%4d-%02d-%02d %02d:%02d:%02d.%03d %20s: %4d] "),
+    ESC_STR(COLOR_CH_RED,       "[E] [%4d-%02d-%02d %02d:%02d:%02d.%03d %20s: %4d] "),
 };
+
+#define TIME_PARAM(tm, tb)  (tm)->tm_year + 1900, (tm)->tm_mon + 1, (tm)->tm_mday, \
+                            (tm)->tm_hour, (tm)->tm_min, (tm)->tm_sec, \
+                            (tb)->millitm
 
 
 int blive_log(blive_log_level level, const char* func_name, int line, const char* fmt, ...)
@@ -53,19 +59,28 @@ int blive_log(blive_log_level level, const char* func_name, int line, const char
     int     print_size = 0;
     int     prefix_size = 0;
     char    print_buffer[2048] = {0};
+    struct timeb    tb_time;
+    struct tm*      tm_time;
+
 
     if (level < BLIVE_LOG_DEBUG || level > BLIVE_LOG_ERROR) {
         return ERROR;
     }
 
-    prefix_size = snprintf(print_buffer, 2048 - 1, log_prefix_fmt[level], func_name, line);
+    ftime(&tb_time);
+    tb_time.time += 22800;
+    tm_time = gmtime(&tb_time.time);
+    prefix_size = snprintf(print_buffer, 2048 - 1, log_prefix_fmt[level], TIME_PARAM(tm_time, &tb_time), func_name, line);
 
     va_start(va, fmt);
     print_size = vsnprintf(print_buffer + prefix_size, 2048 - prefix_size - 1, fmt, va);
     va_end(va);
 
     /*如果打印末尾未添加换行符，则补上一个换行符*/
-    if (print_buffer[print_size + prefix_size - 2] != '\n' && print_buffer[print_size + prefix_size - 1] != '\n') {
+    if (print_buffer[print_size + prefix_size - 2] != '\r' && print_buffer[print_size + prefix_size - 1] == '\n') {
+        print_buffer[print_size + prefix_size - 1] = '\r';
+        print_buffer[print_size + prefix_size] = '\n';
+    } else if (print_buffer[print_size + prefix_size - 2] != '\r' && print_buffer[print_size + prefix_size - 1] != '\n') {
         print_buffer[print_size + prefix_size] = '\r';
         print_buffer[print_size + prefix_size + 1] = '\n';
     }

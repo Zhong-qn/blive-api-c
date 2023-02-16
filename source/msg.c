@@ -263,6 +263,7 @@ int blive_perform(blive* entity, int count)
         if (FD_ISSET(entity->pair_fd[0], &fds)) {
             shutdown(entity->pair_fd[0], SHUT_RDWR);
             entity->pair_fd[0] = 0;
+            blive_loge("external call force stop");
             retval = OK;
             break;
         }

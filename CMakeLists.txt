@@ -87,6 +87,7 @@ set(BLIVE_API_SRC       ${BLIVE_API_DIR}/source/conn.c
 
 
 add_compile_options(-g -Wall -fPIC)
+add_definitions(-DBLIVE_API_DEBUG_INFO)
 
 
 add_library(blive_api SHARED ${BLIVE_API_SRC})
