@@ -56,6 +56,7 @@ int blive_establish_connection(blive* entity, blive_schedule_func schedule_func,
         return ERROR;
     }
 
+    blive_logi("connected to liveroom %d", entity->room_id);
     return OK;
 }
 

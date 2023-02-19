@@ -61,7 +61,7 @@ static struct {
 
 
 static int brotli_unzip(char** dst, char* src, const blive_msg_header* header, blive* entity);
-static int cmd_body_parse(blive* entity, const char* body, cJSON** output);
+static int cmd_body_parse(blive* entity, const char* body, int body_size, Bool compressed);
 static void call_handler(blive* entity, blive_info_type type, cJSON* json_obj);
 static int header_recv(blive* entity, blive_msg_header* header);
 static int body_recv(blive* entity, const blive_msg_header* header, char* body);
@@ -233,7 +233,8 @@ int blive_perform(blive* entity, int count)
 {
     int                 retval = OK;
     Bool                run = True;
-    char                body[2048] = {0};
+    int                 body_size = 0;
+    static char         body[9192] = {0};
     int32_t             fdmax = 0;
     fd_set              fds = {0};
     blive_msg_header    header = {0};
@@ -277,7 +278,7 @@ int blive_perform(blive* entity, int count)
             }
             header_print(&header);
             memset(body, 0, sizeof(body));
-            if (body_recv(entity, &header, body) == ERROR) {
+            if ((body_size = body_recv(entity, &header, body)) == ERROR) {
                 blive_loge("connection closed!");
                 retval = ERROR;
                 break;
@@ -305,43 +306,45 @@ int blive_perform(blive* entity, int count)
             case BLIVE_MSG_TYPE_COMMAND:        /*普通包命令*/
             {
                 char*               decode_buffer = NULL;
-                cJSON*              json_obj = NULL;
                 blive_info_type     cmd_type = BLIVE_INFO_MIN;
+                int                 decode_size = 0;
 
                 /*数据包解压*/
-                if (header.msg_proto == BLIVE_MSG_PROTO_CMDCOMPRESZLIB) {   /*普通包正文使用zlib压缩*/
+                switch (header.msg_proto) {
+                case BLIVE_MSG_PROTO_CMDNOCMPRES:       /*普通包正文不使用压缩*/
+                {
+                    /*无压缩情况，直接解析（实际情况下都有压缩，没见到无压缩的情况）*/
+                    if ((cmd_type = cmd_body_parse(entity, body, body_size, False)) == ERROR) {
+                        blive_loge("invalid normal command packet!");
+                    }
+                    break;
+                }
+                case BLIVE_MSG_PROTO_CMDCOMPRESZLIB:    /*普通包正文使用zlib压缩*/
+                {
                     blive_logd("msg body use zlib encode");
-                    // if (zlib_unzip(&decode_buffer, body, &header, entity) == ERROR) {
-                    //     blive_loge("brotli decode failed");
-                    //     break;
-                    // }
                     blive_loge("zlib not supported yet");
                     break;
-                } else if (header.msg_proto == BLIVE_MSG_PROTO_CMDCOMPRESBROTLI) {  /*普通包正文使用brotli压缩*/
+                }
+                case BLIVE_MSG_PROTO_CMDCOMPRESBROTLI:  /*普通包正文使用brotli压缩*/
+                {
                     blive_logd("msg body use brotli encode");
-                    if (brotli_unzip(&decode_buffer, body, &header, entity) == ERROR) {
+                    if ((decode_size = brotli_unzip(&decode_buffer, body, &header, entity)) == ERROR) {
                         blive_loge("brotli decode failed");
                         break;
                     }
-                } else {
-                    decode_buffer = body;   /*无压缩情况，直接解析*/
+                    if ((cmd_type = cmd_body_parse(entity, decode_buffer, decode_size, True)) == ERROR) {
+                        blive_loge("invalid normal command packet!");
+                    }
+                    break;
                 }
-
-                /*预解析消息正文*/
-                if ((cmd_type = cmd_body_parse(entity, decode_buffer, &json_obj)) == ERROR) {
-                    blive_loge("invalid normal command packet!");
-                } else {
-                    /*如果用户注册了对应类型的回调函数，则调用回调接口触发*/
-                    blive_logd("body: [%s]", decode_buffer);
-                    call_handler(entity, cmd_type, json_obj);
+                case BLIVE_MSG_PROTO_HBAUNOCMPRES:      /*心跳及认证包正文不使用压缩*/
+                default:
+                    blive_loge("invalid protocol type %d!", header.msg_proto);
+                    break;  /*不可能出现，跳过*/
                 }
 
                 /*释放临时资源*/
-                if (json_obj != NULL) {
-                    cJSON_Delete(json_obj);
-                    json_obj = NULL;
-                }
-                if (decode_buffer != NULL && decode_buffer != body) {
+                if (decode_buffer != NULL) {
                     free(decode_buffer);
                 }
 
@@ -374,42 +377,63 @@ int blive_force_stop(blive* entity)
 }
 
 
-static int cmd_body_parse(blive* entity, const char* body, cJSON** output)
+static int cmd_body_parse(blive* entity, const char* body, int body_size, Bool compressed)
 {
-    cJSON*  json_obj = NULL;
-    cJSON*  cmd_obj = NULL;
-    int     retval = ERROR;
-    int     count = BLIVE_INFO_MIN;
-    
-    json_obj = cJSON_Parse(body);
-    if (json_obj == NULL) {
-        return ERROR;
-    }
+    cJSON*              json_obj = NULL;
+    cJSON*              cmd_obj = NULL;
+    int                 count = BLIVE_INFO_MIN;
+    int                 handled_size = 0;
+    blive_msg_header    msg_header = {0};
 
-    /*解析消息类型*/
-    cmd_obj = cJSON_GetObjectItem(json_obj, "cmd");
-    if (cmd_obj == NULL) {
-        blive_loge("invalid msg: no cmd field");
-        cJSON_Delete(json_obj);
-        return ERROR;
-    }
-    while (count < BLIVE_INFO_MAX) {
-        if (!strcmp(cmd_obj->valuestring, blive_info_str[count].info_str)) {
-            break;
+    /*多个普通包可能会被压缩后一次性发送，因此body内可能不止包含一个数据包，使用循环进行处理*/
+    while (handled_size < body_size) {
+        /*如果是经过压缩，数据正文字段中将会再含有一个消息头*/
+        if (compressed) {
+            msg_header.packet_size = ntohl(((const blive_msg_header*)(body + handled_size))->packet_size);
+            msg_header.header_size = ntohs(((const blive_msg_header*)(body + handled_size))->header_size);
+            msg_header.msg_proto = ntohs(((const blive_msg_header*)(body + handled_size))->msg_proto);
+            msg_header.msg_operate = ntohl(((const blive_msg_header*)(body + handled_size))->msg_operate);
+            msg_header.msg_seq = ntohl(((const blive_msg_header*)(body + handled_size))->msg_seq);
+            handled_size += msg_header.header_size;
         }
-        count++;
+        
+        json_obj = cJSON_Parse(body + handled_size);
+        if (json_obj == NULL) {
+            blive_loge("cjson parse failed: %d/%d", handled_size, body_size);
+            return ERROR;
+        }
+        if (compressed) {
+            handled_size += msg_header.packet_size - msg_header.header_size;
+        } else {
+            handled_size += body_size;
+        }
+
+        /*解析消息类型*/
+        cmd_obj = cJSON_GetObjectItem(json_obj, "cmd");
+        if (cmd_obj == NULL) {
+            blive_loge("invalid msg: no cmd field");
+            cJSON_Delete(json_obj);
+            return ERROR;
+        }
+
+        count = 0;
+        while (count < BLIVE_INFO_MAX) {
+            if (!strcmp(cmd_obj->valuestring, blive_info_str[count].info_str)) {
+                break;
+            }
+            count++;
+        }
+
+        if (count >= BLIVE_INFO_MAX) {
+            blive_logi("invalid cmd type: %s", cmd_obj->valuestring);
+        } else {
+            blive_logi("msg info type: [%s]", blive_info_str[count].info_str_chn);
+            call_handler(entity, count, json_obj);
+        }
+        cJSON_Delete(json_obj);
     }
 
-    if (count >= BLIVE_INFO_MAX) {
-        retval = ERROR;
-        blive_loge("invalid cmd type: %s", cmd_obj->valuestring);
-        cJSON_Delete(json_obj);
-    } else {
-        retval = count;
-        *output = json_obj;
-        blive_logd("msg info type: [%s]", blive_info_str[count].info_str_chn);
-    }
-    return retval;
+    return OK;
 }
 
 static inline void call_handler(blive* entity, blive_info_type type, cJSON* json_obj)
@@ -437,10 +461,22 @@ static int header_recv(blive* entity, blive_msg_header* header)
 
 static int body_recv(blive* entity, const blive_msg_header* header, char* body)
 {
+    int     retry_count = 2;
+    int     recv_size = 0;
     int     body_size = header->packet_size - sizeof(blive_msg_header);
 
     /*接收响应正文*/
-    if (recv(entity->conn_fd, body, body_size, 0) != body_size) {
+    while (retry_count--) {
+        recv_size += recv(entity->conn_fd, body + recv_size, body_size - recv_size, 0);
+        if (recv_size != body_size) {
+            blive_logd("should recv %d, actual recv %d, retry again", body_size, recv_size);
+        } else {
+            break;
+        }
+    }
+
+    if (recv_size != body_size) {
+        blive_loge("should recv %d, actual recv %d, failed!", body_size, recv_size);
         return ERROR;
     }
     return body_size;
@@ -479,7 +515,7 @@ static inline void header_construct(char* dst, blive* entity, blive_msg_operate_
 static int brotli_unzip(char** dst, char* src, const blive_msg_header* header, blive* entity)
 {
     char*   decode_buffer = NULL;
-    size_t  decode_size = 1024;
+    size_t  decode_size = 2048;
     Bool    is_ok = False;
     int     err_count = 0;
     BrotliDecoderResult res = BROTLI_DECODER_RESULT_ERROR;
@@ -493,22 +529,21 @@ static int brotli_unzip(char** dst, char* src, const blive_msg_header* header, b
         if (res == BROTLI_DECODER_RESULT_SUCCESS) {
             is_ok = True;
         } else {
-            /*初始大小为1024，json格式数据可能较大，在不够存储时扩容再次进行尝试*/
+            /*初始大小为2048，json格式数据可能较大，在不够存储时扩容再次进行尝试*/
             blive_logd("size %ld not enough, try double size", decode_size);
             free(decode_buffer);
             decode_buffer = NULL;
-            decode_size *= 2;
+            decode_size *= 4;
 
             /*避免因为其他原因的解析失败而无限扩大内存申请，在扩容5次后强制退出*/
             err_count++;
-            if (err_count > 5) {
+            if (err_count > 2) {
                 return ERROR;
             }
         }
     }
 
     /*前16个字节是头部消息，也进行了压缩，因此需要去除该消息*/
-    memmove(decode_buffer, decode_buffer + header->header_size, decode_size - header->header_size + 1);
     *dst = decode_buffer;
 
     return decode_size;

@@ -58,7 +58,7 @@ int blive_log(blive_log_level level, const char* func_name, int line, const char
     va_list va = {0};
     int     print_size = 0;
     int     prefix_size = 0;
-    char    print_buffer[2048] = {0};
+    char    print_buffer[20480] = {0};
     struct timeb    tb_time;
     struct tm*      tm_time;
 
