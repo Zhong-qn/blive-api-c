@@ -90,10 +90,10 @@ add_compile_options(-g -Wall -fPIC)
 add_definitions(-DBLIVE_API_DEBUG_ERROR)
 
 
-add_library(blive_api SHARED ${BLIVE_API_SRC})
+# add_library(blive_api SHARED ${BLIVE_API_SRC})
 add_library(blive_api_s STATIC ${BLIVE_API_SRC})
 
-target_link_libraries(blive_api pthread curl brotli_s cjson_s)
+# target_link_libraries(blive_api pthread curl brotli_s cjson_s)
 target_link_libraries(blive_api_s pthread curl brotli_s cjson_s)
 if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
     target_link_libraries(blive_api ws2_32)
@@ -104,8 +104,8 @@ file(COPY ${BLIVE_API_DIR}/external_supports/cJSON/cJSON.h      DESTINATION ${IN
 file(COPY ${BLIVE_API_DIR}/include/blive_api/blive_api.h        DESTINATION ${INCLUDE_OUTPUT_DIR}/blive_api/)
 file(COPY ${BLIVE_API_DIR}/include/blive_api/blive_def.h        DESTINATION ${INCLUDE_OUTPUT_DIR}/blive_api/)
 
-add_library(brotli SHARED ${EXT_BROTLI_SRC})
+# add_library(brotli SHARED ${EXT_BROTLI_SRC})
 add_library(brotli_s STATIC ${EXT_BROTLI_SRC})
 
-add_library(cjson SHARED ${EXT_CJSON_SRC})
+# add_library(cjson SHARED ${EXT_CJSON_SRC})
 add_library(cjson_s STATIC ${EXT_CJSON_SRC})
