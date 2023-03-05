@@ -233,8 +233,8 @@ int blive_perform(blive* entity, int count)
 {
     int                 retval = OK;
     Bool                run = True;
-    int                 body_size = 0;
     static char         body[9192] = {0};
+    int                 body_size = sizeof(body);
     int32_t             fdmax = 0;
     fd_set              fds = {0};
     blive_msg_header    header = {0};
@@ -277,12 +277,13 @@ int blive_perform(blive* entity, int count)
                 break;
             }
             header_print(&header);
-            memset(body, 0, sizeof(body));
+            memset(body, 0, body_size);
             if ((body_size = body_recv(entity, &header, body)) == ERROR) {
                 blive_loge("connection closed!");
                 retval = ERROR;
                 break;
             }
+            blive_logd("body size = %d", body_size);
 
             switch (header.msg_operate) {
             case BLIVE_MSG_TYPE_HBREPLY_POP:    /*心跳包响应*/
@@ -296,7 +297,7 @@ int blive_perform(blive* entity, int count)
                 json_obj = cJSON_Parse(buffer);
                 call_handler(entity, BLIVE_INFO_POP_VALUE_UPDATE, json_obj);
 
-                blive_logd("pop value = %d", entity->pop_val);
+                blive_logi("pop value = %d", entity->pop_val);
                 /*释放临时资源*/
                 cJSON_Delete(json_obj);
                 json_obj = NULL;
@@ -321,13 +322,13 @@ int blive_perform(blive* entity, int count)
                 }
                 case BLIVE_MSG_PROTO_CMDCOMPRESZLIB:    /*普通包正文使用zlib压缩*/
                 {
-                    blive_logd("msg body use zlib encode");
+                    blive_logi("msg body use zlib encode");
                     blive_loge("zlib not supported yet");
                     break;
                 }
                 case BLIVE_MSG_PROTO_CMDCOMPRESBROTLI:  /*普通包正文使用brotli压缩*/
                 {
-                    blive_logd("msg body use brotli encode");
+                    blive_logi("msg body use brotli encode");
                     if ((decode_size = brotli_unzip(&decode_buffer, body, &header, entity)) == ERROR) {
                         blive_loge("brotli decode failed");
                         break;
@@ -352,6 +353,7 @@ int blive_perform(blive* entity, int count)
             }
             default:                            /*其他报文，不应该收到*/
                 run = False;
+                blive_loge("invalid msg_operate type %d!", header.msg_operate);
                 retval = ERROR;
                 break;
             }
@@ -361,11 +363,12 @@ int blive_perform(blive* entity, int count)
             count--;
             if (count == 0) {
                 run = False;
+                blive_logi("count == 0, break");
             }
         }
     }
 
-    blive_logd("perform finished");
+    blive_logi("perform finished");
     return retval;
 }
 
@@ -461,25 +464,30 @@ static int header_recv(blive* entity, blive_msg_header* header)
 
 static int body_recv(blive* entity, const blive_msg_header* header, char* body)
 {
-    int     retry_count = 2;
+    int     retry_count = 3;
+    int     total_size = 0;
     int     recv_size = 0;
     int     body_size = header->packet_size - sizeof(blive_msg_header);
 
     /*接收响应正文*/
     while (retry_count--) {
-        recv_size += recv(entity->conn_fd, body + recv_size, body_size - recv_size, 0);
-        if (recv_size != body_size) {
+        recv_size = recv(entity->conn_fd, body + recv_size, body_size - recv_size, 0);
+        if (recv_size == -1) {
+            blive_loge("recv failed!");
+            return ERROR;
+        }
+        total_size += recv_size;
+        if (total_size != body_size) {
             blive_logd("should recv %d, actual recv %d, retry again", body_size, recv_size);
         } else {
             break;
         }
     }
 
-    if (recv_size != body_size) {
+    if (total_size != body_size) {
         blive_loge("should recv %d, actual recv %d, failed!", body_size, recv_size);
-        return ERROR;
     }
-    return body_size;
+    return total_size;
 }
 
 static inline void header_print(const blive_msg_header* header)

@@ -68,7 +68,7 @@ int blive_log(blive_log_level level, const char* func_name, int line, const char
     }
 
     ftime(&tb_time);
-    tb_time.time += 22800;
+    tb_time.time += 28800;
     tm_time = gmtime(&tb_time.time);
     prefix_size = snprintf(print_buffer, 2048 - 1, log_prefix_fmt[level], TIME_PARAM(tm_time, &tb_time), func_name, line);
 
