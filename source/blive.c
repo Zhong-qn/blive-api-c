@@ -172,7 +172,7 @@ void blive_api_deinit()
     return curl_global_cleanup();
 }
 
-int blive_create(blive** entity, uint64_t usr_id, uint64_t room_id)
+int blive_create(blive** entity, uint64_t usr_id, uint64_t room_id, uint16_t max_reconnect)
 {
     if (entity == NULL) {
         return ERROR;
@@ -190,6 +190,10 @@ int blive_create(blive** entity, uint64_t usr_id, uint64_t room_id)
     }
     memset(*entity, 0, sizeof(blive));
 
+    if (max_reconnect) {
+        (*entity)->max_reconnect = max_reconnect;
+        (*entity)->auto_reconnect = True;
+    }
     (*entity)->room_id = room_id;
     (*entity)->usr_id = usr_id;
     (*entity)->curl_handle = curl_easy_init();
@@ -211,16 +215,13 @@ int blive_destroy(blive* entity)
         return ERROR;
     }
 
+    /*关闭curl实体*/
     if (entity->curl_handle != NULL) {
         curl_easy_cleanup(entity->curl_handle);
         entity->curl_handle = NULL;
     }
 
-    if (entity->conn_fd) {
-        shutdown(entity->conn_fd, SHUT_RDWR);
-        entity->conn_fd = 0;
-    }
-
+    /*关闭成对的socket*/
     if (entity->pair_fd[0]) {
         shutdown(entity->pair_fd[0], SHUT_RDWR);
         entity->pair_fd[0] = 0;

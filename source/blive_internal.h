@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <pthread.h>
+
 #include "blive_def.h"
 #include "curl/curl.h"
 #include "cJSON/cJSON.h"
@@ -41,6 +43,9 @@ typedef struct {
 } blive_curl_data;
 
 struct blive {
+    Bool                    auto_reconnect;     /*自动重连*/
+    uint16_t                max_reconnect;      /*最大重连次数*/
+    pthread_mutex_t         conn_lock;          /*用于连接相关的线程锁，避免多线程可能造成的问题*/
     CURL*                   curl_handle;        /*http请求的处理实体，来自curl库*/
     blive_schedule_func     sched_func;         /*外部提供的定时器功能的注册函数指针*/
     void*                   sched_entity;       /*外部提供的定时器功能的实体*/

@@ -67,9 +67,10 @@ void blive_api_deinit();
  * @param [out] entity 传出直播间实体
  * @param [in] usr_id 用户ID，0表示游客
  * @param [in] room_id 直播间ID
+ * @param [in] max_reconnect 连接失败后的最大重连次数
  * @return int 
  */
-int blive_create(blive** entity, uint64_t usr_id, uint64_t room_id);
+int blive_create(blive** entity, uint64_t usr_id, uint64_t room_id, uint16_t max_reconnect);
 
 /**
  * @brief 销毁直播间对象实体

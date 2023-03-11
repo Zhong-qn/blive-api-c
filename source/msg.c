@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #ifdef WIN32
 #include <winsock2.h>
@@ -67,6 +68,7 @@ static int header_recv(blive* entity, blive_msg_header* header);
 static int body_recv(blive* entity, const blive_msg_header* header, char* body);
 static void header_print(const blive_msg_header* header);
 static void header_construct(char* dst, blive* entity, blive_msg_operate_type op, int data_len);
+static int runtime_auto_reconnect(blive* entity);
 
 
 int blive_set_command_callback(blive* entity, blive_info_type info, blive_msg_handler cb, void* usr_data)
@@ -176,7 +178,9 @@ int blive_send_heartbeat(blive* entity)
     int     data_len = 0;
     int     ret = 0;
 
-    
+    /*在外部模块被调用的回调函数，非本线程使用，注意进行加锁操作*/
+    pthread_mutex_lock(&entity->conn_lock);
+
     /*构造心跳包的头部和正文*/
     data_len = snprintf(hb_msg + sizeof(blive_msg_header), 1024 - 1 - sizeof(blive_msg_header), 
             HRTBT_SEND_PACKET_JSON_BODY, BLIVEC_MAJOR_VERSION, BLIVEC_SECOND_VERSION);
@@ -187,39 +191,21 @@ int blive_send_heartbeat(blive* entity)
     ret = send(entity->conn_fd, hb_msg, sizeof(blive_msg_header) + data_len, 0);
     if (!ret) {
         blive_loge("heartbeat send failed");
+        pthread_mutex_unlock(&entity->conn_lock);
         return ERROR;
     }
     blive_logd("send %d byte(s)", ret);
 
     /**
-     * @brief 注释说明：
+     * @brief 说明：
      * 此处不进行心跳包的接收响应，是因为考虑到发送心跳包后，有可能并不是立即接受到心跳包的响应，
      * 可能会先收到普通包后才会收到心跳响应，因此建立一个消息队列用于逐个处理各种类型的包，而不是
      * 立即通过recv来接受包
      * 
      */
 
-    // /*接收响应头*/
-    // ret = recv(entity->conn_fd, hb_reply, sizeof(blive_msg_header), 0);
-    // if (!ret) {
-    //     blive_loge("recv failed: remote closed");
-    //     return ERROR;
-    // }
-    // header_print((blive_msg_header*)hb_reply);
-
-    // /*接收响应正文*/
-    // ret = recv(entity->conn_fd, hb_reply + sizeof(blive_msg_header), 
-    //            ntohl(((blive_msg_header*)hb_reply)->packet_size) - sizeof(blive_msg_header), 0);
-    // if (!ret) {
-    //     blive_loge("recv failed: remote closed");
-    //     return ERROR;
-    // }
-
-    // /*响应头解析*/
-    // if (ntohl(((blive_msg_header*)hb_reply)->msg_operate) != BLIVE_MSG_TYPE_HBREPLY_POP) {
-    //     blive_loge("recv failed: remote reply error");
-    //     return ERROR;
-    // }
+    /*对模块的内部操作结束，解锁*/
+    pthread_mutex_unlock(&entity->conn_lock);
 
     /*在发送一个心跳包后，重注册定时器，发送下一个心跳包*/
     if (entity->sched_func(entity->sched_entity, 30 * 1000, (blive_schedule_cb)blive_send_heartbeat, entity) != OK) {
@@ -273,6 +259,10 @@ int blive_perform(blive* entity, int count)
         if (FD_ISSET(entity->conn_fd, &fds)) {
             if (header_recv(entity, &header) == ERROR) {
                 blive_loge("connection closed!");
+                /*尝试重新连接*/
+                if (runtime_auto_reconnect(entity) != ERROR) {
+                    continue;
+                }
                 retval = ERROR;
                 break;
             }
@@ -280,6 +270,10 @@ int blive_perform(blive* entity, int count)
             memset(body, 0, body_size);
             if ((body_size = body_recv(entity, &header, body)) == ERROR) {
                 blive_loge("connection closed!");
+                /*尝试重新连接*/
+                if (runtime_auto_reconnect(entity) != ERROR) {
+                    continue;
+                }
                 retval = ERROR;
                 break;
             }
@@ -448,18 +442,37 @@ static inline void call_handler(blive* entity, blive_info_type type, cJSON* json
 
 static int header_recv(blive* entity, blive_msg_header* header)
 {
+    int     retry_count = 3;
+    int     total_size = 0;
+    int     recv_size = 0;
     char    buffer[sizeof(blive_msg_header)] = {0};
 
-    if (recv(entity->conn_fd, buffer, sizeof(blive_msg_header), 0) != sizeof(blive_msg_header)) {
+    while (retry_count--) {
+        recv_size = recv(entity->conn_fd, buffer + total_size, sizeof(blive_msg_header), 0);
+        if (recv_size == -1) {
+            blive_loge("recv failed!");
+            return ERROR;
+        }
+        total_size += recv_size;
+        if (total_size != sizeof(blive_msg_header)) {
+            blive_logd("should recv %d, actual recv %d, retry again", sizeof(blive_msg_header), total_size);
+        } else {
+            break;
+        }
+    }
+
+    if (total_size != sizeof(blive_msg_header)) {
+        blive_loge("should recv %d, actual recv %d, failed!", sizeof(blive_msg_header), recv_size);
         return ERROR;
     }
+
     header->packet_size = ntohl(((blive_msg_header*)buffer)->packet_size);
     header->header_size = ntohs(((blive_msg_header*)buffer)->header_size);
     header->msg_proto = ntohs(((blive_msg_header*)buffer)->msg_proto);
     header->msg_operate = ntohl(((blive_msg_header*)buffer)->msg_operate);
     header->msg_seq = ntohl(((blive_msg_header*)buffer)->msg_seq);
 
-    return sizeof(blive_msg_header);
+    return total_size;
 }
 
 static int body_recv(blive* entity, const blive_msg_header* header, char* body)
@@ -471,14 +484,14 @@ static int body_recv(blive* entity, const blive_msg_header* header, char* body)
 
     /*接收响应正文*/
     while (retry_count--) {
-        recv_size = recv(entity->conn_fd, body + recv_size, body_size - recv_size, 0);
+        recv_size = recv(entity->conn_fd, body + total_size, body_size - recv_size, 0);
         if (recv_size == -1) {
             blive_loge("recv failed!");
             return ERROR;
         }
         total_size += recv_size;
         if (total_size != body_size) {
-            blive_logd("should recv %d, actual recv %d, retry again", body_size, recv_size);
+            blive_logd("should recv %d, actual recv %d, retry again", body_size, total_size);
         } else {
             break;
         }
@@ -555,4 +568,51 @@ static int brotli_unzip(char** dst, char* src, const blive_msg_header* header, b
     *dst = decode_buffer;
 
     return decode_size;
+}
+
+static int runtime_auto_reconnect(blive* entity)
+{
+    int     retval = ERROR;
+
+    /*如果没开启自动重连，或已经达到最大重连次数，直接退出*/
+    if (!entity->auto_reconnect || !entity->max_reconnect) {
+        blive_loge("auto reconnect not enable! EN:%d, CNT:%d", entity->auto_reconnect, entity->max_reconnect);
+        goto out;
+    }
+
+    /*进行重连操作的时候将会更新与服务器的连接，因此加锁避免此时其他线程使用服务器的资源*/
+    pthread_mutex_lock(&entity->conn_lock);
+
+    while (entity->max_reconnect) {
+        entity->max_reconnect--;
+
+        blive_loge("close current connection...");
+        retval = blive_close_connection(entity);
+        if (retval != OK) {
+            entity->auto_reconnect = False;
+            blive_loge("close current connection failed, unknown error!");
+            break;
+        }
+
+        blive_loge("trying to reconnect...");
+        retval = blive_establish_connection(entity, entity->sched_func, entity->sched_entity);
+        if (retval != OK) {
+            blive_loge("reconnect failed, will try again after 5 seconds...");
+            sleep(5);
+            continue;
+        }
+
+        blive_loge("connection recovered!");
+        break;
+    }
+
+    /*完成重连，解锁*/
+    pthread_mutex_unlock(&entity->conn_lock);
+
+    if (retval != OK) {
+        blive_loge("reconnect failed! You can retry after checking your network!");
+    }
+
+out:
+    return retval;
 }

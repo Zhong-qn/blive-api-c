@@ -96,7 +96,7 @@ add_library(blive_api_s STATIC ${BLIVE_API_SRC})
 # target_link_libraries(blive_api pthread curl brotli_s cjson_s)
 target_link_libraries(blive_api_s pthread curl brotli_s cjson_s)
 if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
-    target_link_libraries(blive_api ws2_32)
+    # target_link_libraries(blive_api ws2_32)
     target_link_libraries(blive_api_s ws2_32)
 endif()
 

@@ -72,12 +72,6 @@ int blive_close_connection(blive* entity)
         entity->auth_key = NULL;
     }
 
-    /*关闭curl实体*/
-    if (entity->curl_handle != NULL) {
-        curl_easy_cleanup(entity->curl_handle);
-        entity->curl_handle = NULL;
-    }
-
     /*释放与服务端的TCP连接*/
     if (entity->conn_fd != 0) {
         shutdown(entity->conn_fd, SHUT_RDWR);
@@ -88,6 +82,7 @@ int blive_close_connection(blive* entity)
     for (int count = 0; count < BLIVE_HOST_NUM; count++) {
         if (entity->host_list[count].host_str != NULL) {
             free(entity->host_list[count].host_str);
+            entity->host_list[count].host_str = NULL;
         }
     }
 
